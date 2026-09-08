@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livity Café — Pro Social Sound Lounge</title>
+  <link rel="stylesheet" href="/LCDesign.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@700;800;900&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body class="hangout-body">
+
+  <!-- Universal Audio Unlock Banner -->
+  <div id="audioUnlockBanner" class="audio-banner">
+    <span>🔊 Audio is muted by default. <strong>Click here to unmute & tune in live!</strong></span>
+  </div>
+
+  <header class="hangout-nav">
+    <div class="nav-left">
+      <div class="logo-mark">☕</div>
+      <div class="logo-text">
+        <h1>LIVITY CAFÉ</h1>
+        <span>PRO SOUND SYSTEM & DUBPLATE SUITE</span>
+      </div>
+    </div>
+    
+    <div class="marquee-zone">
+      <div class="live-pill">ON AIR</div>
+      <div class="track-info-scroll" id="navTrackDisplay">Connecting master channel...</div>
+    </div>
+    
+    <div class="nav-right" id="authZone"></div>
+  </header>
+
+  <main class="hangout-layout">
+    
+    <section class="stage-section">
+
+      <!-- DJ Console & Stage -->
+      <div class="dj-stage">
+        
+        <div class="booth-container">
+          
+          <!-- Turntable Deck -->
+          <div class="turntable-box" id="turntableDeck" title="Tap to Scratch/Pause">
+            <div class="vinyl-platter" id="vinylRecord">
+              <div class="grooves"></div>
+              <div class="vinyl-label" id="turntableLabel">
+                <span>LIVITY</span>
+                <small>45 RPM</small>
+              </div>
+            </div>
+            <div class="tone-arm active-arm" id="toneArm"></div>
+            <span class="deck-hint">TAP TO SCRATCH</span>
+          </div>
+
+          <!-- Master Video & Audio Stage Screen -->
+          <div class="stereo-rack-frame">
+            <div class="stereo-rack-header">
+              <div class="rack-screws"><span></span><span></span></div>
+              <div class="rack-indicator">
+                <span class="pulse-dot"></span>
+                <span id="stereoModeBadge">LIVE YOUTUBE STREAM</span>
+              </div>
+              <div class="rack-screws"><span></span><span></span></div>
+            </div>
+
+            <!-- Dedicated Video Iframe Area -->
+            <div class="video-monitor-wrapper">
+              <div id="ytPlayerContainer">
+                <div id="ytPlayer"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active DJ Console -->
+          <div class="active-dj-wrap">
+            <div class="dj-avatar-halo">
+              <div class="dj-avatar" id="currentDjAvatar">🎛️</div>
+            </div>
+            <div class="dj-tag">
+              <span class="dj-badge" id="currentDjRole">MASTER RESIDENT</span>
+              <span class="dj-name" id="currentDjName">King Jammy AI</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Stage HUD -->
+        <div class="stage-hud">
+          <div class="hud-track-meta">
+            <h2 id="stageTrackTitle">Loading Track...</h2>
+            <p id="stageTrackArtist">Selecta</p>
+          </div>
+          
+          <div class="hud-actions">
+            <button class="vibe-btn" id="awesomeBtn">
+              <span class="fire-icon">🔥</span>
+              <span class="btn-text">BOP IT!</span>
+              <span class="bop-counter" id="vibeCount">0</span>
+            </button>
+            
+            <button class="skip-btn" id="voteSkipBtn" title="Vote to skip current record">
+              <span class="skip-icon">⏭️</span>
+              <span class="skip-text">SKIP</span>
+              <span class="skip-counter" id="skipCountBadge">0/1</span>
+            </button>
+
+            <button class="stage-action-btn" id="hopOnDeckBtn">Hop On Deck 🎧</button>
+          </div>
+        </div>
+
+        <!-- Serato Studio-Grade FX Board -->
+        <div class="fx-soundboard">
+          <div class="fx-title">
+            <span class="fx-dot"></span>
+            <span>SERATO FX BOARD</span>
+          </div>
+          <div class="fx-pad-row">
+            <button class="fx-pad horn-pad" id="fxHorn">
+              <span class="pad-label">📢 SERATO AIRHORN</span>
+              <small>Triple Multi-Hit</small>
+            </button>
+            <button class="fx-pad siren-pad" id="fxSiren">
+              <span class="pad-label">🚨 DUB SIREN</span>
+              <small>LFO Osc Resonance</small>
+            </button>
+            <button class="fx-pad laser-pad" id="fxLaser">
+              <span class="pad-label">⚡ 80s LASER</span>
+              <small>Fast Exponential Zap</small>
+            </button>
+            <button class="fx-pad rewind-pad" id="fxRewind">
+              <span class="pad-label">⏪ WHEEL UP</span>
+              <small>Turntable Tape Stop</small>
+            </button>
+          </div>
+          <div class="queue-status" id="queueStatusDisplay">Deck Queue: Free</div>
+        </div>
+
+      </div>
+
+      <!-- Dance Floor Crowd Grid -->
+      <div class="dance-floor">
+        <div class="floor-header">
+          <div class="floor-left">
+            <span class="floor-title">LOUNGE DANCE FLOOR</span>
+            <span class="floor-pill"><span id="listenerCount">0</span> SELECTORS IN SESSION</span>
+          </div>
+          <span class="hype-meter" id="hypeDisplay">VIBE: MELLOW DUB</span>
+        </div>
+        <div class="crowd-grid" id="crowdGrid"></div>
+      </div>
+
+      <!-- Modern Glassmorphism Search Crate -->
+      <div class="modern-crate-section">
+        <div class="crate-head">
+          <div>
+            <h3>Selector Sound Crate</h3>
+            <p>1-Click instant spin. Music queues automatically from start to finish with continuous YouTube autoplay.</p>
+          </div>
+          
+          <!-- Fast Genre Preset Tags -->
+          <div class="quick-genre-tags">
+            <button type="button" class="genre-tag" data-query="Chronixx Skankin Sweet">Chronixx</button>
+            <button type="button" class="genre-tag" data-query="Koffee Toast">Koffee</button>
+            <button type="button" class="genre-tag" data-query="Bob Marley Could You Be Loved">Bob Marley</button>
+            <button type="button" class="genre-tag" data-query="Burna Boy Last Last">Burna Boy</button>
+            <button type="button" class="genre-tag" data-query="Protoje Who Knows">Protoje</button>
+          </div>
+        </div>
+        
+        <!-- Search Bar -->
+        <form id="quickSearchForm" class="modern-search-bar">
+          <div class="search-input-wrap">
+            <span class="search-lens">🔍</span>
+            <input type="text" id="quickSearchInput" placeholder="Search track or artist on YouTube (e.g. Koffee Toast, Chronixx, Damian Marley)..." autocomplete="off" required>
+          </div>
+          <button type="submit" class="search-action-btn">Search Catalog</button>
+        </form>
+
+        <!-- Search Results Grid -->
+        <div class="modern-results-container" id="searchResultsBox">
+          <div class="empty-crate-box">Search any song to immediately drop it on the needle.</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Lounge Chat -->
+    <aside class="chat-sidebar">
+      <div class="chat-header">
+        <span class="live-dot">●</span>
+        <span>SOUND SYSTEM TRANSMISSION</span>
+      </div>
+      <div class="chat-feed" id="chatFeed"></div>
+      <form id="chatForm" class="chat-input-row">
+        <input type="text" id="chatMessageInput" placeholder="Drop a salute in the chat..." autocomplete="off" required>
+        <button type="submit" class="chat-send-btn">Send</button>
+      </form>
+    </aside>
+
+  </main>
+
+  <!-- Membership Card Modal -->
+  <div class="modal-overlay hidden" id="authModal">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <h3 id="modalTitle">Register Selector Pass</h3>
+      <p class="modal-sub">Create your membership card to broadcast records and join the crowd.</p>
+
+      <form id="authForm">
+        <div class="form-group">
+          <label>Selector Handle</label>
+          <input type="text" id="authUsername" placeholder="e.g. Tariddim" required>
+        </div>
+        <div class="form-group" id="emailGroup">
+          <label>Email Address</label>
+          <input type="email" id="authEmail" placeholder="yourname@gmail.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="authPassword" placeholder="••••••••" required>
+        </div>
+        <div class="form-group" id="avatarPickerGroup">
+          <label>Choose Stage Avatar</label>
+          <div class="avatar-selection-row">
+            <label><input type="radio" name="avatarSelect" value="🎧" checked> <span>🎧</span></label>
+            <label><input type="radio" name="avatarSelect" value="🎛️"> <span>🎛️</span></label>
+            <label><input type="radio" name="avatarSelect" value="🦁"> <span>🦁</span></label>
+            <label><input type="radio" name="avatarSelect" value="🎷"> <span>🎷</span></label>
+            <label><input type="radio" name="avatarSelect" value="🕺"> <span>🕺</span></label>
+            <label><input type="radio" name="avatarSelect" value="⚡"> <span>⚡</span></label>
+          </div>
+        </div>
+        <button type="submit" class="primary-btn full-width" id="authSubmitBtn">Step Into Lounge</button>
+      </form>
+      
+      <div class="modal-toggle-row">
+        <span id="modalTogglePrompt">Already have a selector pass? </span>
+        <button type="button" class="link-btn" id="toggleAuthBtn">Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/LCfrontend.js"></script>
+</body>
+</html>

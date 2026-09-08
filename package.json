@@ -1,0 +1,16 @@
+{
+  "name": "livity-cafe",
+  "version": "1.0.0",
+  "description": "Livity Café Hangout.fm live sound lounge",
+  "main": "LCbackend.js",
+  "scripts": {
+    "start": "node LCbackend.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.10.0",
+    "express": "^4.22.2",
+    "express-session": "^1.19.0",
+    "yt-search": "^2.13.1"
+  }
+}
